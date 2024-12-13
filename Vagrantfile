@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vm2.vm.box = "generic/debian12"
     vm2.vm.hostname = "controlnode"
     vm2.ssh.insert_key = false
-    vm2.vm.network :private_network, ip: "192.168.219.134"
+    vm2.vm.network :private_network, ip: "192.168.10.134"
     vm2.vm.provision "shell", privileged: true, path: "script-docker.sh"
     vm2.vm.provider "vmware_desktop" do |v|
       v.allowlist_verified = true
@@ -50,7 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vm1.vm.box = "generic/debian12"
     vm1.vm.hostname = "jenkinsvm"
     vm1.ssh.insert_key = false
-    vm1.vm.synced_folder "jenkins-vm/jenkins-config", "/home/vagrant/jenkins-config", owner: "vagrant", group: "vagrant"
+    vm1.vm.synced_folder "jenkins-config", "/home/vagrant/jenkins-config", owner: "vagrant", group: "vagrant"
     vm1.vm.network :private_network, ip: "192.168.10.128"
     vm1.vm.provision "shell", privileged: true, path: "script-jenkins.sh"
     vm1.vm.provision "shell", privileged: true, path: "ssh-setup.sh"

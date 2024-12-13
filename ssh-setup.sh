@@ -24,7 +24,7 @@ sudo -u $USER chmod 600 "$SSH_DIR/id_rsa"
 sudo -u $USER chmod 644 "$SSH_DIR/id_rsa.pub"
 
 # List of all nodes (adjust IP addresses as needed)
-NODES=("192.168.10.134" "192.168.10.137" "192.168.10.138") # Add your node IPs here
+NODES=(" 192.168.10.148" "192.168.10.149" "192.168.10.151") # Add your node IPs here
 
 # Loop through each node and copy the public key to authorized_keys
 for NODE in "${NODES[@]}"; do

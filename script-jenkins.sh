@@ -20,7 +20,7 @@ systemctl restart jenkins
 rm -rf /var/lib/jenkins/users
 
 ### Copying all local config files to Jenkins VM
-cp -r ./jenkins-config/* /var/lib/jenkins/
+cp -r jenkins-config/* /var/lib/jenkins/
 
 chown -R jenkins:jenkins /var/lib/jenkins
 systemctl restart jenkins
@@ -43,3 +43,30 @@ fi
 java -jar jenkins-cli.jar -s http://localhost:8080/ -auth admin:admin123 install-plugin docker-workflow git workflow-multibranch multibranch-scan-webhook-trigger github ssh-agent ssh-slaves timestamper email-ext build-timeout workflow-aggregator pipeline-stage-view ant github-branch-source nodejs pipeline-github-lib matrix-auth antisamy-markup-formatter gradle pam-auth ws-cleanup ldap cloudbees-folder kubernetes-cli
 
 systemctl restart jenkins
+
+echo "jenkins ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+
+
+###docker
+apt update -y
+apt install gnome-terminal -y
+
+apt-get update -y
+apt-get install ca-certificates curl -y
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update -y
+
+apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+#to avoid using sudo with every docker commands
+groupadd docker
+usermod -aG docker $USER
+newgrp docker
+
