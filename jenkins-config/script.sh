@@ -20,7 +20,7 @@ systemctl restart jenkins
 rm -rf /var/lib/jenkins/users
 
 ### Copying all local config files to Jenkins VM
-cp -r jenkins-config/* /var/lib/jenkins/
+cp -r ./jenkins-config/* /var/lib/jenkins/
 
 chown -R jenkins:jenkins /var/lib/jenkins
 systemctl restart jenkins
@@ -40,6 +40,6 @@ if [ ! -f jenkins-cli.jar ]; then
 fi
 
 ### Installing Jenkins plugins using username and password
-java -jar jenkins-cli.jar -s http://localhost:8080/ -auth admin:admin123 install-plugin docker-workflow git workflow-multibranch multibranch-scan-webhook-trigger github ssh-agent ssh-slaves timestamper email-ext build-timeout workflow-aggregator pipeline-stage-view ant github-branch-source nodejs pipeline-github-lib matrix-auth antisamy-markup-formatter gradle pam-auth ws-cleanup ldap cloudbees-folder kubernetes-cli
+java -jar jenkins-cli.jar -s http://localhost:8080/ -auth admin:admin123 install-plugin  git timestamper email-ext build-timeout workflow-aggregator pipeline-stage-view ant github-branch-source ssh-slaves pipeline-github-lib matrix-auth antisamy-markup-formatter gradle pam-auth ws-cleanup ldap cloudbees-folder 
 
 systemctl restart jenkins
