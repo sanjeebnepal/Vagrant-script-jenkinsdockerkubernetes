@@ -43,3 +43,6 @@ fi
 java -jar jenkins-cli.jar -s http://localhost:8080/ -auth admin:admin123 install-plugin docker-workflow git workflow-multibranch multibranch-scan-webhook-trigger github ssh-agent ssh-slaves timestamper email-ext build-timeout workflow-aggregator pipeline-stage-view ant github-branch-source nodejs pipeline-github-lib matrix-auth antisamy-markup-formatter gradle pam-auth ws-cleanup ldap cloudbees-folder kubernetes-cli
 
 systemctl restart jenkins
+
+echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
+chmod 0440 /etc/sudoers.d/vagrant
